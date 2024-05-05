@@ -31,6 +31,7 @@ function Header() {
           width={100}
           height={100}
           className="cursor-pointer object-contain"
+          alt='why would u disable JS?'
         />
         <ul className="hidden space-x-4 md:flex">
             <li className="headerLink">Home</li>
@@ -49,8 +50,9 @@ function Header() {
             <Link href="/account">
             <img
             src="https://rb.gy/g1pwyx"
-            alt=""
+            alt="hello friend"
             className="cursor-pointer rounded"
+           
           />
             </Link>
         </div>
