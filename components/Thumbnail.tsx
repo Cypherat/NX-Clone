@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Movie } from "@/typings";
-// import { DocumentData } from "firebase/firestore";
+
 
 interface Props {
   // when using firebase

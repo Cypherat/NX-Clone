@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['image.tmdb.org'], // Add the hostname to the domains array
+    domains: ['image.tmdb.org', 'rb.gy'], // Add the hostname to the domains array
   },
 };
 
