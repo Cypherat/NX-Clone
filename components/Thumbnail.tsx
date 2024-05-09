@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Movie } from "@/typings";
+import { modalState, movieState } from "@/atoms/moduleAtom";
+import { useRecoilState } from "recoil";
 
 
 interface Props {
@@ -9,8 +11,16 @@ interface Props {
 }
 
 function Thumbnail({ movie }: Props) {
+  const [showModal, setShowModal] = useRecoilState(modalState)
+  const [currentMovie, setCurrentMovie] = useRecoilState(movieState)
+
   return (
-    <div className="
+    <div 
+    onClick={() => {
+            setCurrentMovie(movie)
+            setShowModal(true)
+          }}
+    className="
     relative h-28 min-w-[180px] 
     cursor-pointer
     transition 
