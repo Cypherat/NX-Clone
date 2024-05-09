@@ -4,6 +4,10 @@ import Banner from "@/components/Banner";
 import { Movie } from "@/typings";
 import requests from "@/utils/requests";
 import Row from "@/components/Row";
+import useAuth from "@/hooks/useAuth";
+import { useRecoilValue } from "recoil";
+import { modalState } from "@/atoms/moduleAtom";
+import Modal from "@/components/Modal";
 
 interface Props {
   netflixOriginals: Movie[];
@@ -16,7 +20,7 @@ interface Props {
   documentaries: Movie[];
 }
 
-function Home({
+const Home = ({
   netflixOriginals,
   actionMovies,
   comedyMovies,
@@ -25,8 +29,15 @@ function Home({
   romanceMovies,
   topRated,
   trendingNow,
-}: Props) {
-  console.log(netflixOriginals);
+}: Props) => {
+  const { logout, loading } = useAuth()
+  const showModal = useRecoilValue(modalState)
+
+  if (loading) return 
+    null
+  
+
+
   return (
     <div
       className="relative h-screen bg-gradient-to-b lg:h-[140vh]"
@@ -48,10 +59,11 @@ function Home({
           <Row title="Romance Movies" movies={romanceMovies} />
           <Row title="Documentaries" movies={documentaries} />
         </section>
-      </main>
-      {/* Modal */}
+      </main> 
+     {showModal} && <Modal />
     </div>
   );
+
 }
 
 export const getServerSideProps = async () => {
