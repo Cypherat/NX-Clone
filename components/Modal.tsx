@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Element,Genre } from "../typings";
 import ReactPlayer from "react-player/lazy";
+import { FaPlay } from "react-icons/fa";
 
 function Modal() {
   const [showModal, setShowModal] = useRecoilState(modalState);
@@ -52,7 +53,17 @@ function Modal() {
 
 
   return (
-    <MuiModal open={showModal} onClose={handleClose}>
+    <MuiModal open={showModal} onClose={handleClose} 
+    className="fixed 
+    !top-7 left-0 
+    right-0
+     z-50
+      mx-auto 
+      w-full 
+      max-w-5xl 
+      overflow-hidden
+    overflow-y-scroll 
+    rounded-md scrollbar-hide">
       <>
         <button
           onClick={handleClose}
@@ -80,6 +91,13 @@ function Modal() {
             playing
             muted={muted}
           />
+          <div>
+            <div>
+              <button className="flex items-center gap-x-2 rounded">
+              <FaPlay className="h-7 w-7 text-black" />
+                Play</button>
+            </div>
+          </div>
         </div>
       </>
     </MuiModal>
