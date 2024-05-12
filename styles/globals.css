@@ -2,15 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 /* html, body, heading */
 @layer base {
   body {
     @apply bg-[rgb(20,20,20)] text-white 
     !scrollbar
-    !scrollbar-hide
     !scrollbar-thumb-red-600
-    !overflow-x-hidden
-    !overflow-visible
+    overflow-x-hidden
   }
 
   header {
