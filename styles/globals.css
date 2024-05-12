@@ -11,6 +11,7 @@
     !scrollbar
     !scrollbar-thumb-red-600
     overflow-x-hidden
+    !overflow-y-auto
   }
 
   header {
