@@ -71,7 +71,7 @@ function Modal() {
           <XIcon className="h-6 w-6" />
         </button>
 
-        <div className="relative pt-[56.25%">
+        <div className="relative pt-[56.25%]">
         <ReactPlayer
             url={`https://www.youtube.com/watch?v=${trailer}`}
             width="100%"
