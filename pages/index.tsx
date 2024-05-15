@@ -8,6 +8,7 @@ import useAuth from "@/hooks/useAuth";
 import { useRecoilValue } from "recoil";
 import { modalState } from "@/atoms/moduleAtom";
 import Modal from "@/components/Modal";
+import Plans from "@/components/Plans";
 
 interface Props {
   netflixOriginals: Movie[];
@@ -30,17 +31,20 @@ const Home = ({
   topRated,
   trendingNow,
 }: Props) => {
-  const { logout, loading } = useAuth()
-  const showModal = useRecoilValue(modalState)
+  const { logout, loading } = useAuth();
+  const showModal = useRecoilValue(modalState);
+  const subscription = false;
 
-  if (loading) return 
-    null
-  
+  if (loading || subscription === null) return;
+  null;
 
+  if (!subscription) return <Plans/>;
 
   return (
     <div
-      className={`relative h-screen bg-gradient-to-b lg:h-[140vh] ${showModal && "!h-screen overflow-hidden"}`}
+      className={`relative h-screen bg-gradient-to-b lg:h-[140vh] ${
+        showModal && "!h-screen overflow-hidden"
+      }`}
     >
       <Head>
         <title>Home - Netflix</title>
@@ -48,9 +52,9 @@ const Home = ({
       </Head>
       <Header />
       <main className="relative pl-4 pb-24 lg:space-y24 lg:pl-16">
-        <Banner netflixOriginals={netflixOriginals}/>
+        <Banner netflixOriginals={netflixOriginals} />
         <section className="md:space-y-24">
-        <Row title="Trending Now" movies={trendingNow} />
+          <Row title="Trending Now" movies={trendingNow} />
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={actionMovies} />
           {/* My List Component*/}
@@ -59,12 +63,11 @@ const Home = ({
           <Row title="Romance Movies" movies={romanceMovies} />
           <Row title="Documentaries" movies={documentaries} />
         </section>
-      </main> 
-     {showModal} <Modal />
+      </main>
+      {showModal} <Modal />
     </div>
   );
-
-}
+};
 
 export const getServerSideProps = async () => {
   const [
