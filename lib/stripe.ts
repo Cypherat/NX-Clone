@@ -11,4 +11,9 @@ import {
   }
   )
 
-  const loadCheckout = async (priceId: string)
+  const loadCheckout = async (priceId: string) => {
+    await createCheckoutSession(payments, {
+        price: priceId,
+        success_url: window.location.origin
+    })
+  }
