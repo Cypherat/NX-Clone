@@ -4,7 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 function Plans() {
-    const {logout} = useAuth()
+  const { logout } = useAuth();
 
   return (
     <div>
@@ -23,15 +23,20 @@ function Plans() {
             className="cursor-pointer object-contain"
           />
         </Link>
-        <button className="text-lg font-medium hover:underline" onClick={logout}>
+        <button
+          className="text-lg font-medium hover:underline"
+          onClick={logout}
+        >
           Sign Out
         </button>
       </header>
 
       <main className="pt-28">
-        <h1 className="mb-3 text-3xl font-medium">Choose the Plan that's right for YOU</h1>
+        <h1 className="mb-3 text-3xl font-medium">
+          Choose the Plan that's right for YOU
+        </h1>
         <ul>
-        <li className="flex items-center gap-x-2 text-lg">
+          <li className="flex items-center gap-x-2 text-lg">
             <CheckIcon className="h-7 w-7 text-[#E50914]" /> Watch all you want.
             Ad-free.
           </li>
@@ -44,13 +49,13 @@ function Plans() {
             your plan anytime.
           </li>
         </ul>
-        
+
         <div>
-            <div>
-            <div className="planBox">
-                Standard
-                </div>
-            </div>
+          <div className="flex w-full">
+            <div className="planBox">Standard</div>
+            <div className="planBox">Standard</div>
+            <div className="planBox">Standard</div>
+          </div>
         </div>
       </main>
     </div>
