@@ -1,5 +1,6 @@
 import useAuth from "@/hooks/useAuth";
 import { CheckIcon } from "@heroicons/react/solid";
+import { Table } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -31,7 +32,14 @@ function Plans() {
         </button>
       </header>
 
-      <main className="pt-28">
+      <main
+        className=" 
+        
+        max-w-5xl 
+        px-5 pt-28 pb-12
+        transition-all 
+        md:px-10"
+      >
         <h1 className="mb-3 text-3xl font-medium">
           Choose the Plan that's right for YOU
         </h1>
@@ -50,12 +58,22 @@ function Plans() {
           </li>
         </ul>
 
-        <div>
-          <div className="flex w-full">
+        <div className="mt-4 flex flex-col space-y-4">
+          <div
+            className="flex w-full 
+          items-center 
+          justify-center
+          self-end
+           md:w-3/5"
+          >
             <div className="planBox">Standard</div>
             <div className="planBox">Standard</div>
             <div className="planBox">Standard</div>
           </div>
+
+          {/* <Table/> */}
+
+          <button>Subscribe</button>
         </div>
       </main>
     </div>
