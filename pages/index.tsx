@@ -1,14 +1,16 @@
+import { getProducts, Product } from "@stripe/firestore-stripe-payments";
 import Head from "next/head";
-import Header from "@/components/Header";
-import Banner from "@/components/Banner";
-import { Movie } from "@/typings";
-import requests from "@/utils/requests";
-import Row from "@/components/Row";
-import useAuth from "@/hooks/useAuth";
 import { useRecoilValue } from "recoil";
 import { modalState } from "@/atoms/moduleAtom";
+import Banner from "@/components/Banner";
+import Header from "@/components/Header";
 import Modal from "@/components/Modal";
 import Plans from "@/components/Plans";
+import Row from "@/components/Row";
+import useAuth from "@/hooks/useAuth";
+import payments from "@/lib/stripe";
+import { Movie } from "@/typings";
+import requests from "@/utils/requests";
 
 interface Props {
   netflixOriginals: Movie[];
@@ -19,6 +21,7 @@ interface Props {
   horrorMovies: Movie[];
   romanceMovies: Movie[];
   documentaries: Movie[];
+  products: Product[]
 }
 
 const Home = ({
@@ -30,15 +33,16 @@ const Home = ({
   romanceMovies,
   topRated,
   trendingNow,
+  products,
 }: Props) => {
-  const { logout, loading } = useAuth();
+  console.log(products)
+  const { loading } = useAuth();
   const showModal = useRecoilValue(modalState);
-  const subscription = false;
+  const subscription = false
 
-  if (loading || subscription === null) return;
-  null;
+  if (loading || subscription === null) 
 
-  if (!subscription) return <Plans/>;
+  if (!subscription) return <Plans />
 
   return (
     <div
@@ -49,6 +53,7 @@ const Home = ({
       <Head>
         <title>Home - Netflix</title>
         <link rel="icon" href="/favicon.ico" />
+
       </Head>
       <Header />
       <main className="relative pl-4 pb-24 lg:space-y24 lg:pl-16">
@@ -70,6 +75,11 @@ const Home = ({
 };
 
 export const getServerSideProps = async () => {
+  const products = await getProducts(payments, {
+    includePrices: true,
+    activeOnly: true,
+  }).then((res) => res).catch((error) => console.log(error.message))
+
   const [
     netflixOriginals,
     trendingNow,
@@ -99,8 +109,9 @@ export const getServerSideProps = async () => {
       horrorMovies: horrorMovies.results,
       romanceMovies: romanceMovies.results,
       documentaries: documentaries.results,
+      products: products || null,
     },
-  };
+  }
 };
 
 export default Home;

@@ -66,9 +66,7 @@ function Plans() {
           self-end
            md:w-3/5"
           >
-            <div className="planBox">Standard</div>
-            <div className="planBox">Standard</div>
-            <div className="planBox">Standard</div>
+            
           </div>
 
           {/* <Table/> */}
