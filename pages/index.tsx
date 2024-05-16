@@ -1,4 +1,4 @@
-import { getProducts, Product } from "@stripe/firestore-stripe-payments";
+import { getPrices, getProducts, Product } from "@stripe/firestore-stripe-payments";
 import Head from "next/head";
 import { useRecoilValue } from "recoil";
 import { modalState } from "@/atoms/moduleAtom";
@@ -35,14 +35,13 @@ const Home = ({
   trendingNow,
   products,
 }: Props) => {
-  console.log(products)
   const { loading } = useAuth();
   const showModal = useRecoilValue(modalState);
   const subscription = false
 
   if (loading || subscription === null) return null
 
-  // if (!subscription) return <Plans />
+  if (!subscription) return <Plans products={products} />
 
   return (
     <div
@@ -56,7 +55,7 @@ const Home = ({
 
       </Head>
       <Header />
-      <main className="relative pl-4 pb-24 lg:space-y24 lg:pl-16">
+      <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16">
         <Banner netflixOriginals={netflixOriginals} />
         <section className="md:space-y-24">
           <Row title="Trending Now" movies={trendingNow} />
@@ -73,6 +72,12 @@ const Home = ({
     </div>
   );
 };
+
+
+export default Home
+
+
+
 
 export const getServerSideProps = async () => {
   const products = await getProducts(payments, {
@@ -109,9 +114,8 @@ export const getServerSideProps = async () => {
       horrorMovies: horrorMovies.results,
       romanceMovies: romanceMovies.results,
       documentaries: documentaries.results,
-      products: products || null,
+      products: products || null
     },
   }
 };
 
-export default Home;
