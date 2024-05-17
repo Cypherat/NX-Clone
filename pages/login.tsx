@@ -73,7 +73,7 @@ function Login() {
           <label className="inline-block w-full">
             <input
               type="email"
-              placeholder="Email (you can use a non existent mail"
+              placeholder="Email (type:test123@web.de"
               className="input"
               {...register("email", { required: true })}
             />
@@ -86,7 +86,7 @@ function Login() {
           <label className="inline-block w-full">
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Password test123"
               className="input"
               {...register("password", { required: true })}
             />
