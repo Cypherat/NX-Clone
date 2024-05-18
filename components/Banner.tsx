@@ -40,15 +40,13 @@ function Banner({ netflixOriginals }: Props) {
           priority
         />
       </div>
-
+      {/* added custom css to the movie title and overview, since it interfered with the header */}
       <h1 className="text-2xl md:text-4xl lg:text-7xl font-bold lg:max-w-[85%]">
-  {movie?.title || movie?.name || movie?.original_name}
-</h1>
-<p className="max-w-xs text-xs text-shadow-md md:max-w-lg md:text-lg lg:max-w-2xl lg:max-w-[85%] lg:text-2xl">
-  {movie?.overview}
-</p>
-
-
+        {movie?.title || movie?.name || movie?.original_name}
+      </h1>
+      <p className="max-w-xs text-xs text-shadow-md md:max-w-lg md:text-lg lg:max-w-2xl lg:max-w-[85%] lg:text-2xl">
+        {movie?.overview}
+      </p>
 
       <div className="flex space-x-3">
         <button className="bannerButton bg-white text-black">

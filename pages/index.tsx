@@ -40,6 +40,7 @@ const Home = ({
 
   return (
     <div
+    // this is so we cant scroll when we open the modal
       className={`relative h-screen bg-gradient-to-b lg:h-[140vh] ${showModal && "!h-screen overflow-hidden"}`}
     >
       <Head>
