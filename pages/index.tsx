@@ -12,6 +12,9 @@ import { modalState } from '@/atoms/moduleAtom';
 import Modal from '@/components/Modal';
 import Plans from '@/components/Plans';
 import fetchProducts from '@/lib/fetchProducts';
+import { useEffect, useState } from 'react';
+import { getSubscriptionStatus } from '@/lib/subscriptionStatus';
+import app, { auth } from '@/firebase';
 
 interface Props {
   netflixOriginals: Movie[];
@@ -39,11 +42,23 @@ const Home = ({
   console.log(products);
   const { logout, loading } = useAuth();
   const showModal = useRecoilValue(modalState);
-  const subscription = true;
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
-  if (loading || subscription === null) return null;
+useEffect(() => {
+  const checkSubscription = async () => {
+    const newSubscriptionStatus = auth.currentUser
+      ? await getSubscriptionStatus(app)
+      : false;
+    setIsSubscribed(newSubscriptionStatus);
+  };
+  checkSubscription();
+}, [app, auth.currentUser?.uid]);
 
-  if (!subscription) return <Plans products={products} />;
+  
+if (loading || isSubscribed === null) return null;
+
+
+if (!isSubscribed) return <Plans products={products} />;
 
   return (
     <div
