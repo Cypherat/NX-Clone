@@ -164,23 +164,144 @@
 
 // export default Account;
 
-// test with date
+// test with date WORKS ! NO PLANS THO 
+// import Head from "next/head";
+// import Link from "next/link";
+// import { useEffect, useState } from "react";
+// import { getSubscriptionStatus } from "@/lib/subscriptionStatus";
+// import useAuth from "@/hooks/useAuth";
+// import { FirebaseApp, initializeApp } from "firebase/app";
+// import { getAuth } from "firebase/auth";
+// import { getFunctions, httpsCallable } from "firebase/functions";
+// import { firebaseConfig } from "../firebase";
+// import { GetStaticProps } from "next";
+// import {
+//   Product,
+//   getProducts,
+//   getStripePayments,
+// } from "@stripe/firestore-stripe-payments";
+// import firebaseApp from "../firebase";
+// import { useRouter } from "next/router";
+// import { getPortalUrl } from "@/lib/manageAcc";
+
+// const app = initializeApp(firebaseConfig);
+
+// function Account() {
+//   const { user, logout } = useAuth();
+//   const [subscriptionStatus, setSubscriptionStatus] = useState<{
+//     active: boolean;
+//     created: string | null;
+//   } | null>(null);
+
+//   const router = useRouter();
+
+//   useEffect(() => {
+//     if (user) {
+//       getSubscriptionStatus(app)
+//         .then((status) => setSubscriptionStatus(status))
+//         .catch((error) =>
+//           console.error("Error fetching subscription status:", error)
+//         );
+//     }
+//   }, [user]);
+
+//   const handleManageSubscription = async () => {
+//     try {
+//       const portalUrl = await getPortalUrl(app);
+//       router.push(portalUrl);
+//       console.log("Manage Subscription");
+//     } catch (error) {
+//       console.error("Error opening subscription portal:", error);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <Head>
+//         <title>Account Settings - Netflix</title>
+//         <link rel="icon" href="/nxIconGreen.ico" />
+//       </Head>
+//       <header className="bg-[#141414]">
+//         <Link href="/">
+//           <img
+//             src="https://rb.gy/ulxxee"
+//             width={120}
+//             height={120}
+//             className="cursor-pointer object-contain"
+//           />
+//         </Link>
+//         <Link href="/account">
+//           <img
+//             src="https://rb.gy/g1pwyx"
+//             alt=""
+//             className="cursor-pointer rounded"
+//           />
+//         </Link>
+//       </header>
+
+//       <main className="mx-auto max-w-6xl px-5 pt-24 pb-12 transition-all md:px-10">
+//         <div className="flex flex-col gap-x-4 md:flex-row md:items-center">
+//           <h1 className="text-3xl md:text-4xl">Account</h1>
+//           <div className="-ml-0.5 flex items-center gap-x-1.5">
+//             <img src="https://rb.gy/4vfk4r" alt="" />
+//             <p className="text-xs font-semibold text-[#555]">Member since:</p>
+//             {subscriptionStatus &&
+//             typeof subscriptionStatus.created === "string" ? (
+//               <p>{subscriptionStatus.created}</p>
+//             ) : (
+//               <p className="pt-2 px-5 text-xs font-semibold text-[#555]">
+//                 No membership start date is available at the moment. Firebase
+//                 and Google Cloud services are actively working to resolve the
+//                 issues with the Stripe imports.
+//               </p>
+//             )}
+//           </div>
+//         </div>
+
+//         <div
+//           className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 
+//         md:grid-cols-4 
+//         md:border-x-0 md:border-t md:border-b-0 md:px-0 md:pb-0"
+//         >
+//           <h4>Plan Details (not available in this build, added stripe re-direct alternatively)</h4>
+
+//           {/* Find the current Plan */}
+//           <div></div>
+//         <div className="mt-8">
+//           <button
+//             onClick={handleManageSubscription}
+//             className="inline-flex items-center px-4 py-2 border border-transparent
+//             text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600
+//              hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+//           >
+//             Manage Subscription
+//           </button>
+//         </div>
+//         <div className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0">
+//           <p
+//             className="col-span-3 cursor-pointer text-blue-500 hover:underline"
+//             onClick={logout}
+//           >
+//             Sign out of all devices
+//           </p>
+//         </div>
+//         {/* <Membership/> */}
+
+//         </div>
+//       </main>
+//     </div>
+//   );
+// }
+
+// export default Account;
+
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getSubscriptionStatus } from "@/lib/subscriptionStatus";
 import useAuth from "@/hooks/useAuth";
-import { FirebaseApp, initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFunctions, httpsCallable } from "firebase/functions";
+import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase";
-import { GetStaticProps } from "next";
-import {
-  Product,
-  getProducts,
-  getStripePayments,
-} from "@stripe/firestore-stripe-payments";
-import firebaseApp from "../firebase";
 import { useRouter } from "next/router";
 import { getPortalUrl } from "@/lib/manageAcc";
 
@@ -192,13 +313,18 @@ function Account() {
     active: boolean;
     created: string | null;
   } | null>(null);
+  const [currentPlan, setCurrentPlan] = useState<string | null>(null);
 
   const router = useRouter();
 
   useEffect(() => {
     if (user) {
       getSubscriptionStatus(app)
-        .then((status) => setSubscriptionStatus(status))
+        .then((status) => {
+          setSubscriptionStatus(status);
+          // Assuming you have a field in your subscription data that represents the plan name
+          setCurrentPlan(status.active ? "Premium" : "Free"); // Update the plan name accordingly
+        })
         .catch((error) =>
           console.error("Error fetching subscription status:", error)
         );
@@ -245,9 +371,8 @@ function Account() {
           <div className="-ml-0.5 flex items-center gap-x-1.5">
             <img src="https://rb.gy/4vfk4r" alt="" />
             <p className="text-xs font-semibold text-[#555]">Member since:</p>
-            {subscriptionStatus &&
-            typeof subscriptionStatus.created === "string" ? (
-              <p>{subscriptionStatus.created}</p>
+            {subscriptionStatus && typeof subscriptionStatus.created === "string" ? (
+              <p>{new Date(subscriptionStatus.created).toLocaleDateString()}</p>
             ) : (
               <p className="pt-2 px-5 text-xs font-semibold text-[#555]">
                 No membership start date is available at the moment. Firebase
@@ -263,30 +388,25 @@ function Account() {
         md:grid-cols-4 
         md:border-x-0 md:border-t md:border-b-0 md:px-0 md:pb-0"
         >
-          <h4>Plan Details (not available in this build, added stripe re-direct alternatively)</h4>
-
-          {/* Find the current Plan */}
-          <div></div>
-        <div className="mt-8">
-          <button
-            onClick={handleManageSubscription}
-            className="inline-flex items-center px-4 py-2 border border-transparent
-            text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600
-             hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Manage Subscription
-          </button>
-        </div>
-        <div className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0">
-          <p
-            className="col-span-3 cursor-pointer text-blue-500 hover:underline"
-            onClick={logout}
-          >
-            Sign out of all devices
-          </p>
-        </div>
-        {/* <Membership/> */}
-
+          <h4>Plan Details: {currentPlan}</h4>
+          <div className="mt-8">
+            <button
+              onClick={handleManageSubscription}
+              className="inline-flex items-center px-4 py-2 border border-transparent
+              text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600
+               hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Manage Subscription
+            </button>
+          </div>
+          <div className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0">
+            <p
+              className="col-span-3 cursor-pointer text-blue-500 hover:underline"
+              onClick={logout}
+            >
+              Sign out of all devices
+            </p>
+          </div>
         </div>
       </main>
     </div>
