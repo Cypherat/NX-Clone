@@ -47,17 +47,26 @@ const Home = ({
   console.log('Subscription status:', isSubscribed);
 
   
+// useEffect(() => {
+//   const checkSubscription = async () => {
+//     const newSubscriptionStatus = auth.currentUser
+//       ? await getSubscriptionStatus(app)
+//       : false;
+//     setIsSubscribed(newSubscriptionStatus);
+//   };
+//   checkSubscription();
+// }, [app, auth.currentUser?.uid]);
+
 useEffect(() => {
   const checkSubscription = async () => {
-    const newSubscriptionStatus = auth.currentUser
+    const newSubscriptionStatus = auth.currentUser?.uid
       ? await getSubscriptionStatus(app)
       : false;
-    setIsSubscribed(newSubscriptionStatus);
+    const isSubscribed = newSubscriptionStatus && typeof newSubscriptionStatus === 'object' ? newSubscriptionStatus.active : false;
+    setIsSubscribed(isSubscribed);
   };
   checkSubscription();
 }, [app, auth.currentUser?.uid]);
-
-
 
 
 if (loading || isSubscribed === null) return null;

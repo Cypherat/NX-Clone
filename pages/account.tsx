@@ -175,8 +175,12 @@ import { getAuth } from "firebase/auth";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { firebaseConfig } from "../firebase";
 import { GetStaticProps } from "next";
-import { Product, getProducts, getStripePayments } from "@stripe/firestore-stripe-payments";
-import firebaseApp from '../firebase';
+import {
+  Product,
+  getProducts,
+  getStripePayments,
+} from "@stripe/firestore-stripe-payments";
+import firebaseApp from "../firebase";
 import { useRouter } from "next/router";
 import { getPortalUrl } from "@/lib/manageAcc";
 
@@ -235,8 +239,8 @@ function Account() {
         </Link>
       </header>
 
-      <main className="pt-24">
-        <div>
+      <main className="mx-auto max-w-6xl px-5 pt-24 pb-12 transition-all md:px-10">
+        <div className="flex flex-col gap-x-4 md:flex-row md:items-center">
           <h1 className="text-3xl md:text-4xl">Account</h1>
           <div className="-ml-0.5 flex items-center gap-x-1.5">
             <img src="https://rb.gy/4vfk4r" alt="" />
@@ -245,7 +249,7 @@ function Account() {
             typeof subscriptionStatus.created === "string" ? (
               <p>{subscriptionStatus.created}</p>
             ) : (
-              <p className="text-xs font-semibold text-[#555]">
+              <p className="pt-2 px-5 text-xs font-semibold text-[#555]">
                 No membership start date is available at the moment. Firebase
                 and Google Cloud services are actively working to resolve the
                 issues with the Stripe imports.
@@ -254,23 +258,35 @@ function Account() {
           </div>
         </div>
 
+        <div
+          className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 
+        md:grid-cols-4 
+        md:border-x-0 md:border-t md:border-b-0 md:px-0 md:pb-0"
+        >
+          <h4>Plan Details (not available in this build, added stripe re-direct alternatively)</h4>
+
+          {/* Find the current Plan */}
+          <div></div>
         <div className="mt-8">
           <button
             onClick={handleManageSubscription}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex items-center px-4 py-2 border border-transparent
+            text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600
+             hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Manage Subscription
           </button>
         </div>
-
+        <div className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0">
+          <p
+            className="col-span-3 cursor-pointer text-blue-500 hover:underline"
+            onClick={logout}
+          >
+            Sign out of all devices
+          </p>
+        </div>
         {/* <Membership/> */}
 
-        <div>
-          <h4>Plan Details</h4>
-          {/* Find the current Plan */}
-          <div>
-            
-          </div>
         </div>
       </main>
     </div>

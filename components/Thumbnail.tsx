@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { Movie } from "@/typings";
 import { modalState, movieState } from "@/atoms/moduleAtom";
 import { useRecoilState } from "recoil";
