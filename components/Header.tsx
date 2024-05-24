@@ -26,13 +26,15 @@ function Header() {
   return (
     <header className={`${isScrolled && "bg-[#141414]"}`}>
       <div className="flex items-center space-x-2 md:space-x-10 p-500 m-500">
+        <Link href={"/"}>
         <img
           src="https://rb.gy/ulxxee"
           width={100}
           height={100}
           className="cursor-pointer object-contain"
           alt="why would u disable JS?"
-        />
+          />
+          </Link>
         <ul className="hidden space-x-4 md:flex">
           <li className="headerLink drop-shadow-md text-shadow-md">Home</li>
           <li className="headerLink drop-shadow-md text-shadow-md">Tv Shows</li>
@@ -46,15 +48,13 @@ function Header() {
         <SearchIcon className="hidden h-6 w-6 sm:inline " />
         <p className="hidden lg:inline">Kids</p>
         <BellIcon className="h-6 w-6" />
-        {/* change this later back  */}
-        {/* <Link href="/account"> */}
+        <Link href="/account">
           <img
-          onClick={logout}
             src="https://rb.gy/g1pwyx"
             alt="hello friend"
             className="cursor-pointer rounded"
           />
-        {/* </Link> */}
+        </Link>
       </div>
     </header>
   );

@@ -39,13 +39,12 @@ function Login() {
     >
       <Head>
         <title>Netflix</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/nxIconGreen.ico" />
       </Head>
       <Image
         src="https://rb.gy/p2hphi"
         layout="fill"
         className="-z-10 !hidden opacity-60 sm:!inline"
-        objectFit="cover"
         alt="annoying a## error caused me to write this bs here"
       />
 

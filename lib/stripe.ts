@@ -129,6 +129,8 @@ const createCheckoutSession = async (priceId: string) => {
   });
 
   
+
+  
 // Listen for the checkout session to be created and fetch the URL
 
 return new Promise<string>((resolve, reject) => {

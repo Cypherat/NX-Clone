@@ -34,7 +34,6 @@ function Banner({ netflixOriginals }: Props) {
         <Image
           src={`${baseUrl}${movie?.backdrop_path || movie?.poster_path}`}
           layout="fill"
-          objectFit="cover"
           alt="movie Banner"
           sizes="(max-width: 600px) 100vw, 600px"
           priority

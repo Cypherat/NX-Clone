@@ -21,7 +21,7 @@ function Modal() {
   const [genres, setGenres] = useState<Genre[]>();
   const [muted, setMuted] = useState(false);
 
-  console.log(movie);
+  // console.log(movie);
 
   useEffect(() => {
     if (!movie) return;
@@ -55,7 +55,7 @@ function Modal() {
     setShowModal(false);
   };
 
-  console.log(trailer);
+  // console.log(trailer);
 
   return (
     <MuiModal

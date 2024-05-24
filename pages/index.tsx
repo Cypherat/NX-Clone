@@ -44,6 +44,9 @@ const Home = ({
   const showModal = useRecoilValue(modalState);
   const [isSubscribed, setIsSubscribed] = useState(false);
 
+  console.log('Subscription status:', isSubscribed);
+
+  
 useEffect(() => {
   const checkSubscription = async () => {
     const newSubscriptionStatus = auth.currentUser
@@ -54,11 +57,15 @@ useEffect(() => {
   checkSubscription();
 }, [app, auth.currentUser?.uid]);
 
-  
+
+
+
 if (loading || isSubscribed === null) return null;
 
 
 if (!isSubscribed) return <Plans products={products} />;
+
+
 
   return (
     <div
@@ -68,7 +75,7 @@ if (!isSubscribed) return <Plans products={products} />;
     >
       <Head>
         <title>Home - Netflix</title>
-        <link rel="icon" href='/favicon.ico' />
+        <link rel="icon" href='/nxIconGreen.ico' />
       </Head>
       <Header />
       <main className='relative pl-4 pb-24 lg:space-y-24 lg:pl-16'>
