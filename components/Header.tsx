@@ -2,6 +2,7 @@ import useAuth from "@/hooks/useAuth";
 import { BellIcon, SearchIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import BasicMenu from "./BasicMenu";
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,6 +36,9 @@ function Header() {
           alt="why would u disable JS?"
           />
           </Link>
+
+          <BasicMenu/>
+
         <ul className="hidden space-x-4 md:flex">
           <li className="headerLink drop-shadow-md text-shadow-md">Home</li>
           <li className="headerLink drop-shadow-md text-shadow-md">Tv Shows</li>

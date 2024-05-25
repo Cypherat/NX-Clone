@@ -164,7 +164,7 @@
 
 // export default Account;
 
-// test with date WORKS ! NO PLANS THO 
+// test with date WORKS ! NO PLANS THO
 // import Head from "next/head";
 // import Link from "next/link";
 // import { useEffect, useState } from "react";
@@ -259,8 +259,8 @@
 //         </div>
 
 //         <div
-//           className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 
-//         md:grid-cols-4 
+//           className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4
+//         md:grid-cols-4
 //         md:border-x-0 md:border-t md:border-b-0 md:px-0 md:pb-0"
 //         >
 //           <h4>Plan Details (not available in this build, added stripe re-direct alternatively)</h4>
@@ -304,6 +304,7 @@ import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase";
 import { useRouter } from "next/router";
 import { getPortalUrl } from "@/lib/manageAcc";
+// import Membership from "@/components/Membership";
 
 const app = initializeApp(firebaseConfig);
 
@@ -342,7 +343,7 @@ function Account() {
   };
 
   return (
-    <div>
+    <div className="mt-6 grid grid-cols-1 gap-x-4 border px4">
       <Head>
         <title>Account Settings - Netflix</title>
         <link rel="icon" href="/nxIconGreen.ico" />
@@ -371,7 +372,8 @@ function Account() {
           <div className="-ml-0.5 flex items-center gap-x-1.5">
             <img src="https://rb.gy/4vfk4r" alt="" />
             <p className="text-xs font-semibold text-[#555]">Member since:</p>
-            {subscriptionStatus && typeof subscriptionStatus.created === "string" ? (
+            {subscriptionStatus &&
+            typeof subscriptionStatus.created === "string" ? (
               <p>{new Date(subscriptionStatus.created).toLocaleDateString()}</p>
             ) : (
               <p className="pt-2 px-5 text-xs font-semibold text-[#555]">
@@ -383,30 +385,82 @@ function Account() {
           </div>
         </div>
 
+        {/* <Membership/> */}
+
+        <div
+          className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 
+          md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0 md:pb-0"
+        >
+          <h4 className="text-lg text-[#adada4]">
+            Current Plan:
+            <div className="col-span-2 font-medium text-[#e33455]">
+              {currentPlan}
+            </div>
+          </h4>
+          
+          <p
+            className="cursor-pointer text-blue-500 hover:underline md:text-right"
+            onClick={handleManageSubscription}
+          >
+            Change Plan
+          </p>
+        
+        </div>
         <div
           className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 
         md:grid-cols-4 
         md:border-x-0 md:border-t md:border-b-0 md:px-0 md:pb-0"
         >
-          <h4>Plan Details: {currentPlan}</h4>
-          <div className="mt-8">
-            <button
-              onClick={handleManageSubscription}
-              className="inline-flex items-center px-4 py-2 border border-transparent
+          <button
+            onClick={handleManageSubscription}
+            className="inline-flex items-center px-4 py-2 border border-transparent
               text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600
                hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Manage Subscription
+          </button>
+
+          <div className="col-span-3">
+            <div
+              className="flex flex-col justify-between border-b
+           border-white/10 py-4 md:flex-row"
             >
-              Manage Subscription
-            </button>
+              <div className="">
+                <p className="font-medium">{user?.email}</p>
+                <p className="text-[gray]">
+                  Password: <span className="text-[#b12626]">*******</span>{" "}
+                </p>
+              </div>
+              <div className="md:text-right">
+                <p className="membershipLink">Change Email</p>
+                <p className="membershipLink">Change Password</p>
+              </div>
+            </div>
           </div>
-          <div className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0">
-            <p
-              className="col-span-3 cursor-pointer text-blue-500 hover:underline"
-              onClick={logout}
-            >
-              Sign out of all devices
-            </p>
-          </div>
+        </div>
+
+            {/* <div className="flex flex-col">
+              <div>
+                <p>
+                  {subscriptionStatus?.
+                  ? 'Your membership will end on'
+                  : 'Your next billing date ist'
+                  }
+                </p>
+              </div>
+
+            </div> */}
+
+        
+
+        <div className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0">
+          <h4 className="text-lg text-[gray]">Settings</h4>
+          <p
+            className="col-span-3 cursor-pointer text-blue-500 hover:underline"
+            onClick={logout}
+          >
+            Sign out of all devices
+          </p>
         </div>
       </main>
     </div>
